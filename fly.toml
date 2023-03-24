@@ -1,0 +1,26 @@
+app = "dns-server-test"
+kill_signal = "SIGINT"
+kill_timeout = 5
+primary_region = "cdg"
+
+[env]
+  TCP_ADDR = "0.0.0.0:53"
+  UDP_ADDR = "fly-global-services:53"
+
+[[services]]
+  protocol = "tcp"
+  internal_port = 53
+
+  [[services.ports]]
+    port = 53
+  [services.concurrency]
+    type = "connections"
+    hard_limit = 25
+    soft_limit = 20
+
+[[services]]
+  protocol = "udp"
+  internal_port = 53
+
+  [[services.ports]]
+    port = 53
